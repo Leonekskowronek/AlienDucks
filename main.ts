@@ -27,6 +27,30 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         info.changeLifeBy(-1)
     }
 })
+function doSomething (sprite: Sprite, left: Image, right: Image) {
+    if (sprite.y < 70) {
+        if (0 < 0) {
+            mySprite2 = sprites.create(img`
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                `, SpriteKind.Player)
+        }
+    }
+}
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite2, otherSprite2) {
     sprites.destroy(sprite2, effects.fountain, 200)
     sprites.destroy(otherSprite2, effects.disintegrate, 100)
