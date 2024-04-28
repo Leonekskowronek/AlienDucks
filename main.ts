@@ -27,35 +27,20 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         info.changeLifeBy(-1)
     }
 })
-function doSomething (sprite: Sprite, left: Image, right: Image) {
+function dropSprite (sprite: Sprite, left: Image, right: Image) {
     if (sprite.y < 70) {
-        if (0 < 0) {
-            mySprite2 = sprites.create(img`
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                `, SpriteKind.Player)
+        if (sprite.right < 0 || sprite.left > 160) {
+            mySprite2 = sprites.create(right, sprite.kind())
+            if (sprite.vx > 0) {
+                mySprite2.setImage(left)
+            }
         }
+        mySprite2.setStayInScreen(false)
+        mySprite2.setFlag(SpriteFlag.AutoDestroy, true)
+        mySprite2.setPosition(Math.constrain(sprite.x, 0, 160), sprite.y + 25)
+        mySprite2.setVelocity(sprite.vx * -2, 50)
     }
 }
-sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite2, otherSprite2) {
-    sprites.destroy(sprite2, effects.fountain, 200)
-    sprites.destroy(otherSprite2, effects.disintegrate, 100)
-    info.changeScoreBy(1)
-})
 let mySprite2: Sprite = null
 let mySprite: Sprite = null
 let projectile2: Sprite = null
