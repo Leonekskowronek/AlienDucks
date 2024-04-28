@@ -3,6 +3,43 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Food, function (sprite, othe
     sprites.destroy(otherSprite, effects.disintegrate, 100)
     info.changeLifeBy(5)
 })
+sprites.onDestroyed(SpriteKind.Food, function (sprite) {
+    dropSprite(sprite, img`
+        . . . . . . . . . . . 6 6 6 6 6 
+        . . . . . . . . . 6 6 7 7 7 7 8 
+        . . . . . . 8 8 8 7 7 8 8 6 8 8 
+        . . e e e e c 6 6 8 8 . 8 7 8 . 
+        . e 2 5 4 2 e c 8 . . . 6 7 8 . 
+        e 2 4 2 2 2 2 2 c . . . 6 7 8 . 
+        e 2 2 2 2 2 2 2 c . . . 8 6 8 . 
+        e 2 e e 2 2 2 2 e e e e c 6 8 . 
+        c 2 e e 2 2 2 2 e 2 5 4 2 c 8 . 
+        . c 2 e e e 2 e 2 4 2 2 2 2 c . 
+        . . c 2 2 2 e e 2 2 2 2 2 2 2 e 
+        . . . e c c e c 2 2 2 2 2 2 2 e 
+        . . . . . . . c 2 e e 2 2 e 2 c 
+        . . . . . . . c e e e e e e 2 c 
+        . . . . . . . . c e 2 2 2 2 c . 
+        . . . . . . . . . c c c c c . . 
+        `, img`
+        . . . . . . . 6 . . . . . . . . 
+        . . . . . . 8 6 6 . . . 6 8 . . 
+        . . . e e e 8 8 6 6 . 6 7 8 . . 
+        . . e 2 2 2 2 e 8 6 6 7 6 . . . 
+        . e 2 2 4 4 2 7 7 7 7 7 8 6 . . 
+        . e 2 4 4 2 6 7 7 7 6 7 6 8 8 . 
+        e 2 4 5 2 2 6 7 7 6 2 7 7 6 . . 
+        e 2 4 4 2 2 6 7 6 2 2 6 7 7 6 . 
+        e 2 4 2 2 2 6 6 2 2 2 e 7 7 6 . 
+        e 2 4 2 2 4 2 2 2 4 2 2 e 7 6 . 
+        e 2 4 2 2 2 2 2 2 2 2 2 e c 6 . 
+        e 2 2 2 2 2 2 2 4 e 2 e e c . . 
+        e e 2 e 2 2 4 2 2 e e e c . . . 
+        e e e e 2 e 2 2 e e e c . . . . 
+        e e e 2 e e c e c c c . . . . . 
+        . c c c c c c c . . . . . . . . 
+        `)
+})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     shells = sprites.allOfKind(SpriteKind.Projectile)
     if (shells.length == 0) {
@@ -41,6 +78,47 @@ function dropSprite (sprite: Sprite, left: Image, right: Image) {
         mySprite2.setVelocity(sprite.vx * -2, 50)
     }
 }
+sprites.onDestroyed(SpriteKind.Enemy, function (sprite) {
+    dropSprite(sprite, img`
+        . . . . . . . . . . . . . . . . 
+        . . . b 5 b . . . . . . . . . . 
+        . . . . b 5 b . . . . . . . . . 
+        . . . . b b b b b b . . . . . . 
+        . . . b 5 5 5 5 5 b b . . . . . 
+        . . b 5 5 5 5 5 5 5 b b b b b . 
+        . . b 5 5 5 5 5 5 5 5 b 5 d b . 
+        . . f 4 d 5 f 1 d 5 b 5 5 b . . 
+        . . c 4 4 5 f f 1 b 5 5 d b . . 
+        b 4 4 4 4 4 b f d 5 5 5 b d b b 
+        . b 4 4 4 4 4 5 b 5 5 d c d d b 
+        . b 5 5 5 5 5 5 5 b c c d d d c 
+        . b 5 5 5 5 5 5 5 d d d d d b c 
+        . b d 5 5 5 5 5 d d d d d d c . 
+        . . b b 5 5 5 d d d d d b c . . 
+        . . . b b c c c c c c c c . . . 
+        `, img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . b 5 b . . . 
+        . . . . . . . . . b 5 b . . . . 
+        . . . . . . b b b b b b . . . . 
+        . . . . . b b 5 5 5 5 5 b . . . 
+        . b b b b b 5 5 5 5 5 5 5 b . . 
+        . b d 5 b 5 5 5 5 5 5 5 5 b . . 
+        . . b 5 5 b 5 d 1 f 5 d 4 f . . 
+        . . b d 5 5 b 1 f f 5 4 4 c . . 
+        b b d b 5 5 5 d f b 4 4 4 4 4 b 
+        b d d c d 5 5 b 5 4 4 4 4 4 b . 
+        c d d d c c b 5 5 5 5 5 5 5 b . 
+        c b d d d d d 5 5 5 5 5 5 5 b . 
+        . c d d d d d d 5 5 5 5 5 d b . 
+        . . c b d d d d d 5 5 5 b b . . 
+        . . . c c c c c c c c b b . . . 
+        `)
+    if (sprite.y < 70) {
+        info.changeScoreBy(-5)
+        info.changeLifeBy(-1)
+    }
+})
 let mySprite2: Sprite = null
 let mySprite: Sprite = null
 let projectile2: Sprite = null
